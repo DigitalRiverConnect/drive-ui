@@ -1,0 +1,72 @@
+<div style="padding-top: 30px; padding-bottom: 20px;">
+  <button type="button" class="btn btn-primary pull-right" (click)="gotoItem(drive.links.create, 'creation')">{{drive.links.create.title}}</button>
+
+  <div class="input-group col-xs-6">
+    <span class="input-group-addon">Name</span>
+    <input [(ngModel)]="query" (keypress)="onKeyPress($event)" class="form-control" size="60"/>
+    <span class="input-group-btn">
+        <button type="button" class="btn btn-primary" (click)="search()">{{drive.links.search.title}}</button>
+    </span>
+  </div>
+</div>
+
+<div class="table-responsive" style="height: 100vh;">
+  <table class="table table-striped">
+    <thead>
+    <th>name</th>
+    <th>description</th>
+    <th>active</th>
+    <th></th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let definition of drive.entities['watch-definitions']">
+      <td><a style="cursor: pointer" (click)="gotoItem(definition.links.item, 'edit')">{{definition.data.name}}</a></td>
+      <td>{{definition.data.description}}</td>
+      <td>{{definition.data.active}}</td>
+      <td>
+        <popover-content #delPopover
+                         title="Are you sure want to delete this definition?"
+                         placement="left"
+                         [animation]="true"
+                         [closeOnClickOutside]="true" >
+          <button class="btn btn-block btn-danger" (click)="delete(definition.links.delete, {message: 'Delete Successfully'})">Yes<i class="glyphicon glyphicon-ok"></i></button>
+          <button class="btn btn-block btn-default" (click)="delPopover.hide()">No<i class="glyphicon glyphicon-remove"></i></button>
+        </popover-content>
+        <button type="button" class="btn btn-xs btn-danger" [popover]="delPopover">
+          {{definition.links.delete.title}}
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div align="right" style="color: #428bca">Total: {{drive.data.totalResult}}</div>
+  <div class="row col-md-offset-4">
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        <li *ngIf="drive.data.totalPage > 1">
+          <a style="cursor: pointer" (click)="request(drive.links.first)">
+            {{drive.links.first.title}}
+          </a>
+        </li>
+        <li>
+          <a style="cursor: pointer" *ngIf="drive.links.prev" (click)="request(drive.links.prev)">
+            {{drive.links.prev.title}}
+          </a>
+        </li>
+        <li *ngFor="let key of drive.links | keys">
+          <a *ngIf="key.key.indexOf('page') >= 0" style="cursor: pointer" [ngStyle]="highlightCurrentPage(key.value.title)" (click)="request(key.value)">{{key.value.title}}</a>
+        </li>
+        <li>
+          <a style="cursor: pointer" *ngIf="drive.links.next" (click)="request(drive.links.next)">
+            {{drive.links.next.title}}
+          </a>
+        </li>
+        <li *ngIf="drive.data.totalPage > 1">
+          <a style="cursor: pointer" (click)="request(drive.links.last)">
+            {{drive.links.last.title}}
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

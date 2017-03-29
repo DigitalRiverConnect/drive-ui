@@ -4,5 +4,9 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  url: 'http://localhost:3456',
+  endpoint: '/watch-definitions.drive',
+  offset: 0,
+  max: 10
 };
