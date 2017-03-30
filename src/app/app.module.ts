@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { DriveComponent } from './drive/drive.component';
 import { DriveService } from './drive/drive.service';
 import { DriveListComponent } from './drive/drive-list/drive-list.component';
+import { DriveItemComponent } from './drive/drive-item/drive-item.component';
 import { PopoverModule } from './popover/popover.modules';
 import { KeysPipe} from './pipe/keys.pipe';
 
@@ -15,6 +16,7 @@ import { KeysPipe} from './pipe/keys.pipe';
     AppComponent,
     DriveComponent,
     DriveListComponent,
+    DriveItemComponent,
     KeysPipe
   ],
   imports: [

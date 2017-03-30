@@ -29,15 +29,12 @@ export class DriveService {
       parameters.splice(1, 0, body);
     }
 
-    console.log("parameter", parameters);
     let observable = this.http[method].apply(this.http, parameters);
     return observable.toPromise()
       .then(response => {
-        console.log("response", JSON.stringify(response.json()))
         return response.json();
       })
       .catch(error => {
-        console.error("exception", error);
         throw error;
       });
   }

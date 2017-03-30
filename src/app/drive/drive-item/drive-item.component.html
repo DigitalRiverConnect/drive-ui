@@ -1,0 +1,26 @@
+<div class="container">
+  <div id='editor_holder'></div>
+</div>
+<div *ngIf="drive.links" [ngSwitch]="page">
+  <div class="container" *ngSwitchCase="'edit'">
+    <!-- buttons for update -->
+    <button type="button" class="btn btn-primary" (click)="save(drive.links.edit, 'list')">{{drive.links.edit.title}}</button>
+    <button type="button" class="btn btn-danger" [popover]="delPopover">{{drive.links.delete.title}}</button>
+    <button type="button" class="btn btn-primary" (click)="list(drive.links.up)">{{drive.links.up.title}}</button>
+  </div>
+  <div class="container" *ngSwitchDefault>
+    <!-- buttons for create -->
+    <button type="button" class="btn btn-primary" (click)="save(drive.links.create, 'list')">{{drive.links.create.title}}</button>
+    <button type="button" class="btn btn-primary" (click)="list(drive.links.up)">{{drive.links.up.title}}</button>
+  </div>
+</div>
+
+<popover-content #delPopover
+                 title="Are you sure want to delete this definition?"
+                 placement="top"
+                 [animation]="true"
+                 [closeOnClickOutside]="true"
+                 [appendToBody]="true" >
+  <button class="btn btn-block btn-danger" (click)="delete(drive.links.delete)">Yes<i class="glyphicon glyphicon-ok"></i></button>
+  <button class="btn btn-block btn-default" (click)="delPopover.hide()">No<i class="glyphicon glyphicon-remove"></i></button>
+</popover-content>
