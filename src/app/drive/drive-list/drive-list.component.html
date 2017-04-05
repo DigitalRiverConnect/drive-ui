@@ -20,7 +20,7 @@
     </thead>
     <tbody>
     <tr *ngFor="let definition of drive.entities['watch-definitions']">
-      <td><a style="cursor: pointer" (click)="gotoItem(definition.links.item, 'edit')">{{definition.data.name}}</a></td>
+      <td><a style="cursor: pointer" (click)="gotoItem(definition.links.item, 'edit')">{{definition.links.item.title}}</a></td>
       <td>{{definition.data.description}}</td>
       <td>{{definition.data.active}}</td>
       <td>
