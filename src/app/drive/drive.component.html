@@ -16,6 +16,7 @@
   <div *ngSwitchCase="'list'">
     <!-- list/default page -->
     <drive-list *ngIf="drive.entities" [drive]="drive"
+                [url]="endpoint.href"
                 (driveEvent)="driveEvent($event)"
                 (errorEvent)="errorEvent($event)">
     </drive-list>
