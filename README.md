@@ -8,6 +8,7 @@ drive-ui is a project demonstrate how the drive media type could be integrated w
 * Install Node 6.9.0 or higher, together with NPM 3 or higher. (Install as Administrator on Windows platform
   otherwise error may occurred in next step)
 * npm install -g @angular/cli
+* npm install
 * ng serve --open
 
 ## How it works
