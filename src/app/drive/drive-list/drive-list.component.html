@@ -3,9 +3,9 @@
 
   <div class="input-group col-xs-6">
     <span class="input-group-addon">Name</span>
-    <input [(ngModel)]="query" (keypress)="onKeyPress($event)" class="form-control" size="60"/>
+    <input [(ngModel)]="query" (keypress)="onKeyPress($event, drive.links.search)" class="form-control" size="60"/>
     <span class="input-group-btn">
-        <button type="button" class="btn btn-primary" (click)="search()">{{drive.links.search.title}}</button>
+        <button type="button" class="btn btn-primary" (click)="search(drive.links.search)">{{drive.links.search.title}}</button>
     </span>
   </div>
 </div>

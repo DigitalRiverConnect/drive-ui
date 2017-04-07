@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { DriveService } from '../drive.service'
 import 'rxjs/add/operator/toPromise'
 
@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise'
   selector: 'drive-list',
   templateUrl: './drive-list.component.html'
 })
-export class DriveListComponent {
+export class DriveListComponent implements OnChanges {
 
   @Input() drive;
   @Input() url;
@@ -15,6 +15,10 @@ export class DriveListComponent {
   query: string;
 
   constructor(private driveService: DriveService) { }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.drive = changes['drive']['currentValue']
+  }
 
   /**
    *
@@ -32,7 +36,6 @@ export class DriveListComponent {
    * @param endpoint - endpoint from drive media type
    */
   request(endpoint): void {
-    console.log("endpoint", endpoint)
     const promise = this.driveService.request(endpoint);
     promise.then(data => {
       this.driveEvent.emit({page: 'list', drive: data, query: this.query})
@@ -51,14 +54,9 @@ export class DriveListComponent {
       .catch(error => this.errorEvent.emit(error));
   }
 
-  search(): void {
-    let searchUrl = this.url;
-
-    if (this.query != undefined && this.query.trim() != '') {
-      searchUrl += `&search.terms=name:${this.query}`;
-    }
-
-    const promise = this.driveService.request({ href: searchUrl});
+  search(endpoint): void {
+    const body = { terms: { name: this.query } };
+    const promise = this.driveService.request(endpoint, body);
     promise.then(data => this.driveEvent.emit({page: 'list', drive: data, query: this.query}))
       .catch(error => this.errorEvent.emit(error));
   }
@@ -73,9 +71,9 @@ export class DriveListComponent {
     return styles;
   }
 
-  onKeyPress(event: any) {
+  onKeyPress(event: any, endpoint) {
     if (event.code === 'Enter') {
-      this.search()
+      this.search(endpoint)
     }
   }
 }

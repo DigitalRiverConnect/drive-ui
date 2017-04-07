@@ -42,11 +42,7 @@ export class DriveItemComponent implements OnInit {
     else {
       const body = { definition: this.jsonEditor.getValue()};
       const promise = this.driveService.request(endpoint, body);
-      console.log("end promise")
       promise.then(data => {
-        console.log("save then")
-        console.log("page", page);
-        console.log("data", JSON.stringify(data));
         this.driveEvent.emit({page: page, drive: data, message: this.successful_messages[page]})
       })
         .catch(error => {
