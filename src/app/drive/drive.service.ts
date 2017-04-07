@@ -26,6 +26,7 @@ export class DriveService {
 
     if (DriveService.requestWithBody.indexOf(method) >= 0) {
       headers.append("Content-Type", "application/json");
+      headers.append("X-Session-Data", "offset=0&max=10");
       parameters.splice(1, 0, body);
     }
 
